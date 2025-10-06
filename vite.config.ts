@@ -22,8 +22,8 @@ export default defineConfig({
       port: 443,
     },
     https: {
-      key: fs.readFileSync('./mercatus.local-key.pem'),
-      cert: fs.readFileSync('./mercatus.local.pem'),
+      key: fs.readFileSync(path.resolve(__dirname, 'mercatus.local-key.pem')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'mercatus.local.pem')),
     },
   },
 })
