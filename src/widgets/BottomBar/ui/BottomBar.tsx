@@ -8,7 +8,7 @@ export const BottomBar = () => {
     { id: 'home', label: 'Главная', icon: '/icons/home.svg' },
     { id: 'catalog', label: 'Каталог', icon: '/icons/catalog.svg' },
     { id: 'chat', label: 'Чат', icon: '/icons/chat.svg' },
-    { id: 'cart', label: 'Корзина', icon: '/icons/cart.svg' },
+    { id: 'cart', label: 'Корзина', icon: '' },
   ]
 
   return (
