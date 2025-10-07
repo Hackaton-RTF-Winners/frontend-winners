@@ -24,11 +24,16 @@ export const useTelegramHaptic = () => {
     [],
   )
 
+  const showAlert = useCallback((message: string, callback?: () => void) => {
+    tg.showAlert(message, callback)
+  }, [])
+
   return {
     tg,
     vibrate,
     notifyUser,
     vibrateSelection,
     showConfirm,
+    showAlert,
   }
 }
