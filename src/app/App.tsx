@@ -7,11 +7,6 @@ import { useInitializeTgApp } from '../features/InitializeTgApp'
 import { useTelegramHaptic } from '../features/TelegramHaptic'
 
 function App() {
-  return (
-    <>
-      <MainPage />
-    </>
-  )
   const { tg } = useInitializeTgApp()
   const { showAlert } = useTelegramHaptic()
   const [selectedFilter, setSelectedFilter] = useState('all')
@@ -26,41 +21,43 @@ function App() {
   const handleFilterToggle = () => {
     setIsFilterOpen(!isFilterOpen)
   }
-
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        backgroundColor: tg.themeParams.bg_color || '#ffffff',
-        padding: '20px',
-      }}
-    >
+    <>
+      <MainPage />
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px',
-          maxWidth: '400px',
-          margin: '0 auto',
+          minHeight: '100vh',
+          backgroundColor: tg.themeParams.bg_color || '#ffffff',
+          padding: '20px',
         }}
       >
-        <Filter
-          label="Verification"
-          value={
-            selectedFilter === 'all'
-              ? 'All'
-              : selectedFilter === 'verified'
-                ? 'Verified'
-                : 'Unverified'
-          }
-          isOpen={isFilterOpen}
-          onToggle={handleFilterToggle}
-          onSelect={handleFilterSelect}
-        />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            maxWidth: '400px',
+            margin: '0 auto',
+          }}
+        >
+          <Filter
+            label="Verification"
+            value={
+              selectedFilter === 'all'
+                ? 'All'
+                : selectedFilter === 'verified'
+                  ? 'Verified'
+                  : 'Unverified'
+            }
+            isOpen={isFilterOpen}
+            onToggle={handleFilterToggle}
+            onSelect={handleFilterSelect}
+          />
 
-        <CardItem />
+          <CardItem />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
