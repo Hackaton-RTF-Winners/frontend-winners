@@ -1,7 +1,6 @@
-import { MainPage } from '../pages/MainPage'
-
 import { useState } from 'react'
-import { CardItem } from '../widgets/CardItem/UI/CardItem.tsx'
+import { MainPage } from '../pages/MainPage'
+import { CardItem } from '../widgets/CardItem'
 import { Filter } from '../widgets/Filter/UI/Filter.tsx'
 import { useInitializeTgApp } from '../features/InitializeTgApp'
 import { useTelegramHaptic } from '../features/TelegramHaptic'
