@@ -1,3 +1,5 @@
+import { MainPage } from '../pages/MainPage'
+
 import { useState } from 'react'
 import { CardItem } from '../widgets/CardItem/UI/CardItem.tsx'
 import { Filter } from '../widgets/Filter/UI/Filter.tsx'
@@ -5,6 +7,11 @@ import { useInitializeTgApp } from '../features/InitializeTgApp'
 import { useTelegramHaptic } from '../features/TelegramHaptic'
 
 function App() {
+  return (
+    <>
+      <MainPage />
+    </>
+  )
   const { tg } = useInitializeTgApp()
   const { showAlert } = useTelegramHaptic()
   const [selectedFilter, setSelectedFilter] = useState('all')
