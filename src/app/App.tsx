@@ -1,30 +1,19 @@
-import { useEffect, useState } from 'react'
-import CardItem from '../widgets/CardItem/UI/CardItem.tsx'
-import Filter from '../widgets/Filter/UI/Filter.tsx'
+import { useState } from 'react'
+import { CardItem } from '../widgets/CardItem/UI/CardItem.tsx'
+import { Filter } from '../widgets/Filter/UI/Filter.tsx'
+import { useInitializeTgApp } from '../features/InitializeTgApp'
+import { useTelegramHaptic } from '../features/TelegramHaptic'
 
 function App() {
-  const tg = window.Telegram.WebApp
+  const { tg } = useInitializeTgApp()
+  const { showAlert } = useTelegramHaptic()
   const [selectedFilter, setSelectedFilter] = useState('all')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
-
-  useEffect(() => {
-    // Инициализация Telegram WebApp
-    tg.ready()
-    tg.expand()
-
-    // Устанавливаем цвета темы
-    tg.setHeaderColor(tg.themeParams.bg_color || '#ffffff')
-    tg.setBackgroundColor(tg.themeParams.bg_color || '#ffffff')
-
-    // Устанавливаем тему для CSS переменных
-    const theme = tg.colorScheme === 'dark' ? 'dark' : 'light'
-    document.documentElement.setAttribute('data-theme', theme)
-  }, [])
 
   const handleFilterSelect = (value: string) => {
     setSelectedFilter(value)
     setIsFilterOpen(false)
-    tg.showAlert(`Selected filter: ${value}`)
+    showAlert(`Selected filter: ${value}`)
   }
 
   const handleFilterToggle = () => {

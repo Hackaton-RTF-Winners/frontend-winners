@@ -1,4 +1,5 @@
 import './Filter.css'
+import { useTelegramHaptic } from '../../../features/TelegramHaptic'
 
 interface FilterProps {
   label?: string
@@ -10,7 +11,7 @@ interface FilterProps {
   className?: string
 }
 
-const Filter = ({
+export const Filter = ({
   label = 'Verification',
   value = 'All',
   options = [
@@ -23,17 +24,17 @@ const Filter = ({
   onSelect,
   className,
 }: FilterProps) => {
-  const tg = window.Telegram.WebApp
+  const { vibrate } = useTelegramHaptic()
 
   const handleToggle = () => {
-    tg.HapticFeedback.impactOccurred('light')
+    vibrate('light')
     if (onToggle) {
       onToggle()
     }
   }
 
   const handleSelect = (selectedValue: string) => {
-    tg.HapticFeedback.impactOccurred('light')
+    vibrate('light')
     if (onSelect) {
       onSelect(selectedValue)
     }
@@ -77,5 +78,3 @@ const Filter = ({
     </div>
   )
 }
-
-export default Filter
