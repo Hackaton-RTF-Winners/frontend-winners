@@ -1,1 +1,1 @@
-export { Filter } from './ui/Filter.tsx'
+export { Filter } from '@widgets/Filter/ui/Filter.tsx'

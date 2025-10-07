@@ -1,1 +1,1 @@
-export { CardItem } from './ui/CardItem.tsx'
+export { CardItem } from '@widgets/CardItem/ui/CardItem.tsx'
