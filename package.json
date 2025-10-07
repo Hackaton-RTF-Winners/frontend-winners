@@ -11,6 +11,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@emotion/css": "^11.13.5",
+    "@emotion/react": "^11.14.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
@@ -42,5 +44,4 @@
       "prettier --write"
     ]
   }
-
 }
