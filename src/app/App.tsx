@@ -3,18 +3,16 @@ import { MainPage } from '../pages/MainPage'
 import { CardItem } from '../widgets/CardItem'
 import { Filter } from '../widgets/Filter/UI/Filter.tsx'
 import { useInitializeTgApp } from '../features/InitializeTgApp'
-import { useTelegramHaptic } from '../features/TelegramHaptic'
 
 function App() {
   const { tg } = useInitializeTgApp()
-  const { showAlert } = useTelegramHaptic()
   const [selectedFilter, setSelectedFilter] = useState('all')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const handleFilterSelect = (value: string) => {
     setSelectedFilter(value)
     setIsFilterOpen(false)
-    showAlert(`Selected filter: ${value}`)
+    // alert removed
   }
 
   const handleFilterToggle = () => {

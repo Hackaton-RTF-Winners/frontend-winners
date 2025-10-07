@@ -1,24 +1,6 @@
 import './CardItem.css'
 import { useTelegramHaptic } from '../../../features/TelegramHaptic'
-
-export interface PipeNomenclature {
-  Id: string
-  CategoryId: string
-  TypeId: string
-  IDTypeNew: string
-  ProductionType: string
-  IDFunctionType: string
-  Name: string
-  Gost: string
-  FormOfLength: string
-  Manufacturer: string
-  SteelGrade: string
-  Diameter: number
-  ProfileSize2: number
-  PipeWallThickness: number
-  Status: number
-  Koef: number
-}
+import type { PipeNomenclature } from '../../../features/JSONInerfaces'
 
 export interface CardItemProps {
   product?: PipeNomenclature
@@ -50,14 +32,12 @@ export const CardItem = ({
   onBuy,
   onShare,
 }: CardItemProps) => {
-  const { vibrate, showAlert } = useTelegramHaptic()
+  const { vibrate } = useTelegramHaptic()
 
   const handleBuy = () => {
     vibrate('light')
     if (onBuy) {
       onBuy()
-    } else {
-      showAlert('Buy button clicked!')
     }
   }
 
@@ -65,8 +45,6 @@ export const CardItem = ({
     vibrate('light')
     if (onShare) {
       onShare()
-    } else {
-      showAlert('Share button clicked!')
     }
   }
 

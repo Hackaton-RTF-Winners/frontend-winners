@@ -17,10 +17,6 @@ export const useTelegramHaptic = () => {
     tg.HapticFeedback.selectionChanged()
   }, [])
 
-  const showAlert = useCallback((message: string) => {
-    tg.showAlert(message)
-  }, [])
-
   const showConfirm = useCallback(
     (message: string, callback?: (confirmed: boolean) => void) => {
       tg.showConfirm(message, callback)
@@ -33,7 +29,6 @@ export const useTelegramHaptic = () => {
     vibrate,
     notifyUser,
     vibrateSelection,
-    showAlert,
     showConfirm,
   }
 }
