@@ -12,7 +12,6 @@ function App() {
   const handleFilterSelect = (value: string) => {
     setSelectedFilter(value)
     setIsFilterOpen(false)
-    // alert removed
   }
 
   const handleFilterToggle = () => {

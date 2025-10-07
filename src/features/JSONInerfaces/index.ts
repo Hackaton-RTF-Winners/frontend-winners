@@ -37,9 +37,6 @@ export interface PipePrice {
   PriceLimitM2: number
   PriceM2: number
   NDS: number
-  //NDS тип — в модели у тебя NUMERIC(5,4),
-  //а JSON даёт "NDS": 20 (т.е. целое число).
-  //Это допустимо, но при сохранении стоит привести к доле (0.2) или поменять тип на NUMERIC(5,2).
 }
 
 export interface PipeRemants {
