@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+mercatus.local-key.pem
+mercatus.local.pem
