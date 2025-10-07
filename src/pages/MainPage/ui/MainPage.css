@@ -1,0 +1,12 @@
+.main-page {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}

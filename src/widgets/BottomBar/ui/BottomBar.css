@@ -22,18 +22,28 @@
   background: none;
   border: none;
   color: var(--tg-theme-text-color, #333);
-  font-size: 14px;
-  padding: 8px 0;
+  font-size: 12px;
+  padding: 6px 0;
   cursor: pointer;
   border-radius: 8px;
   transition:
     background 0.2s,
     color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .tab.active {
   color: var(--tg-theme-button-color, #0088cc);
   font-weight: 600;
+}
+
+.tab .icon {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 4px;
+  filter: var(--tg-theme-text-color-filter, none);
 }
 
 @media (hover: hover) {

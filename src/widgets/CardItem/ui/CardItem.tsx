@@ -1,5 +1,5 @@
 import './CardItem.css'
-import { useTelegramHaptic } from '../../../features/TelegramHaptic'
+import { useTelegramHaptic } from '@features/TelegramHaptic'
 
 interface CardItemProps {
   price?: string
