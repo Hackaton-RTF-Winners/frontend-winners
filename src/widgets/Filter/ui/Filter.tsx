@@ -1,5 +1,5 @@
 import './Filter.css'
-import { useTelegramHaptic } from '../../../features/TelegramHaptic'
+import { useTelegramHaptic } from '@features/TelegramHaptic'
 
 interface FilterProps {
   label?: string
