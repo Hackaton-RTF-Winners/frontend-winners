@@ -5,6 +5,14 @@ import type { PipeNomenclature } from '../../../features/JSONInerfaces'
 export interface CardItemProps {
   product?: PipeNomenclature
   price?: string
+  pricePerUnit?: string
+  sellerName?: string
+  sellerIcon?: string
+  tradesCount?: number
+  successRate?: number
+  available?: string
+  limits?: string
+  paymentMethods?: string[]
   onBuy?: () => void
   onShare?: () => void
 }
