@@ -1,4 +1,5 @@
 import './CardItem.css'
+import { useState } from 'react'
 import { useTelegramHaptic } from '@features/TelegramHaptic'
 import type { PipeNomenclature } from '@features/JSONInerfaces'
 
@@ -39,11 +40,23 @@ export const CardItem = ({
   onBuy,
 }: CardItemProps) => {
   const { vibrate } = useTelegramHaptic()
+  const [isCopiedToastVisible, setIsCopiedToastVisible] = useState(false)
 
   const handleBuy = () => {
     vibrate('light')
     if (onBuy) {
       onBuy()
+    }
+  }
+
+  const handleCopyTypeId = async () => {
+    try {
+      await navigator.clipboard.writeText(product.TypeId)
+      vibrate('light')
+      setIsCopiedToastVisible(true)
+      setTimeout(() => setIsCopiedToastVisible(false), 1500)
+    } catch {
+      // ignore
     }
   }
 
@@ -90,10 +103,22 @@ export const CardItem = ({
           </div>
           <div className="detail-row">
             <span className="detail-label">Артикул</span>
-            <span className="detail-value">{product.IDTypeNew}</span>
+            <span className="detail-value with-icon">
+              {product.IDTypeNew}
+              <button
+                className="doc-button"
+                onClick={handleCopyTypeId}
+                aria-label="Скопировать инвентарный номер"
+              >
+                <span className="icon-doc" aria-hidden="true" />
+              </button>
+            </span>
           </div>
         </div>
       </div>
+      {isCopiedToastVisible && (
+        <div className="copy-toast">Инвентарный номер скопирован</div>
+      )}
     </div>
   )
 }
