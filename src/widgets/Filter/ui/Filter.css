@@ -128,6 +128,15 @@
   opacity: 0.9;
 }
 
+.filter-option-clear {
+  color: var(--tg-theme-link-color, #3390ec);
+  background: transparent;
+}
+
+.filter-option-clear:hover {
+  background: rgba(51, 144, 236, 0.08);
+}
+
 @media (max-width: 480px) {
   .filter-container {
     max-width: 100%;
