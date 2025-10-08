@@ -8,8 +8,12 @@ export const useInitializeTgApp = () => {
     tg.ready()
     tg.expand()
 
-    tg.setHeaderColor(tg.themeParams.bg_color || '#ffffff')
-    tg.setBackgroundColor(tg.themeParams.bg_color || '#ffffff')
+    tg.setHeaderColor(
+      tg.themeParams.bg_color || 'var(--tg-theme-bg-color, #ffffff)',
+    )
+    tg.setBackgroundColor(
+      tg.themeParams.bg_color || 'var(--tg-theme-bg-color, #ffffff)',
+    )
 
     const theme = tg.colorScheme === 'dark' ? 'dark' : 'light'
     document.documentElement.setAttribute('data-theme', theme)

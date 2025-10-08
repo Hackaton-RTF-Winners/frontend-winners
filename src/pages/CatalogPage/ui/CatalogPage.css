@@ -1,0 +1,106 @@
+.catalog-page {
+  padding: 12px;
+  /* чтобы контент не перекрывался фиксированным bottom-bar */
+  padding-bottom: calc(12px + 56px + env(safe-area-inset-bottom));
+}
+
+.filters-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.filters-bar {
+  display: flex;
+  flex-direction: column; /* на мобильном кнопка под фильтрами */
+  align-items: stretch;
+  gap: 12px;
+}
+
+.filters-toggle {
+  display: none;
+}
+
+.filters-reset {
+  white-space: nowrap;
+  padding: 12px 16px; /* как у .filter-button */
+  background: transparent;
+  border: 1px solid var(--tg-theme-section-separator-color, #e3e3e3);
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--tg-theme-link-color, #3390ec);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; /* на мобильном на всю ширину */
+}
+
+@media (min-width: 768px) {
+  .filters-bar {
+    flex-direction: row; /* в ряд на >=768px */
+    align-items: flex-start; /* высота фильтров независима от кнопки */
+  }
+  .filters-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .filters-row {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/* Мобильная версия: прячем фильтры, показываем синюю кнопку */
+@media (max-width: 767px) {
+  .filters-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    background: var(--tg-theme-button-color, #3390ec);
+    color: var(--tg-theme-button-text-color, #ffffff);
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .filters-row {
+    display: none;
+  }
+
+  .filters-row.open {
+    display: grid; /* открываем грид по нажатию */
+  }
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* по умолчанию: одна колонка на мобильных */
+  gap: 16px; /* расстояние между карточками */
+  margin-top: 16px; /* отступ от фильтра */
+}
+
+/* Убираем внешние отступы у карточек внутри сетки,
+   чтобы избежать двойных отступов и "склеивания" */
+.catalog-grid .card-item {
+  margin: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* >= 768px: три колонки */
+@media (min-width: 768px) {
+  .catalog-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* >= 1440px: авто‑заполнение 4+ колонок по мере роста */
+@media (min-width: 1440px) {
+  .catalog-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}

@@ -1,3 +1,3 @@
 export const CartItemPage = () => {
-  return <>dw</>
+  return <></>
 }
