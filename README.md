@@ -1,19 +1,138 @@
-# React + TypeScript + Vite
+# Frontend Winners - Telegram WebApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Приложение для работы с каталогом товаров через Telegram WebApp API.
 
-Currently, two official plugins are available:
+## Технологии
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React + TypeScript + Vite
+- Telegram WebApp API
+- CSS с поддержкой тем Telegram
 
-## React Compiler
+## Установка и запуск
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Предварительные требования
 
-## Expanding the ESLint configuration
+- Node.js (версия 18 или выше)
+- npm или yarn
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Установка зависимостей
+
+```bash
+npm install
+```
+
+### 2. Настройка SSL сертификатов для локальной разработки
+
+Приложение работает через HTTPS, поэтому необходимо настроить локальные SSL сертификаты.
+
+#### Для macOS:
+
+```bash
+# Установка mkcert
+brew install mkcert
+brew install nss  # если используете Firefox
+
+# Создание сертификата для локального домена
+mkcert mercatus.local
+
+# Установка корневого сертификата
+mkcert --install
+
+# Добавление домена в hosts файл
+sudo echo "127.0.0.1 mercatus.local" >> /etc/hosts
+```
+
+#### Для Windows:
+
+```bash
+# Установка через Chocolatey (если установлен)
+choco install mkcert
+
+# Или скачать с https://github.com/FiloSottile/mkcert/releases
+# и добавить в PATH
+
+# Создание сертификата для локального домена
+mkcert mercatus.local
+
+# Установка корневого сертификата
+mkcert --install
+
+# Добавление домена в hosts файл
+# Открыть файл C:\Windows\System32\drivers\etc\hosts от имени администратора
+# Добавить строку: 127.0.0.1 mercatus.local
+```
+
+#### Для Linux:
+
+```bash
+# Установка mkcert
+sudo apt install libnss3-tools
+wget -O mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/mkcert-v1.4.4-linux-amd64
+chmod +x mkcert
+sudo mv mkcert /usr/local/bin/
+
+# Создание сертификата для локального домена
+mkcert mercatus.local
+
+# Установка корневого сертификата
+mkcert --install
+
+# Добавление домена в hosts файл
+sudo echo "127.0.0.1 mercatus.local" >> /etc/hosts
+```
+
+### 3. Запуск приложения
+
+```bash
+# Запуск в режиме разработки
+npm run dev
+
+# Сборка для продакшена
+npm run build
+
+# Предварительный просмотр продакшен сборки
+npm run preview
+```
+
+Приложение будет доступно по адресу: `https://mercatus.local:5173`
+
+## Структура проекта
+
+```
+src/
+├── app/                    # Основные компоненты приложения
+├── entities/               # Бизнес-сущности
+├── features/               # Функциональные компоненты
+│   ├── CardItem/          # Карточка товара
+│   ├── InitializeTgApp/   # Инициализация Telegram WebApp
+│   └── TelegramHaptic/    # Haptic feedback
+├── pages/                  # Страницы приложения
+│   ├── CartItemsPage/     # Страница корзины
+│   ├── CatalogPage/       # Страница каталога
+│   ├── MainPage/          # Главная страница
+│   └── SupportChatPage/   # Страница поддержки
+├── processes/              # Бизнес-процессы
+├── shared/                 # Общие компоненты и утилиты
+│   ├── api/               # API клиент
+│   └── lib/               # Библиотеки и хуки
+└── widgets/                # Виджеты
+    ├── BottomBar/         # Нижняя панель навигации
+    └── Filter/            # Фильтр товаров
+```
+
+## Особенности
+
+- Поддержка тем Telegram (светлая/темная)
+- Адаптивный дизайн
+- Haptic feedback для мобильных устройств
+- Корзина товаров
+- Каталог с фильтрацией
+
+## Разработка
+
+### ESLint конфигурация
+
+Проект использует ESLint с TypeScript поддержкой. Для более строгой проверки типов рекомендуется обновить конфигурацию:
 
 ```js
 export default defineConfig([
@@ -21,53 +140,22 @@ export default defineConfig([
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
       tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
+      // Для более строгих правил
       tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
+      // Стилистические правила
       tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
     ],
     languageOptions: {
       parserOptions: {
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
         tsconfigRootDir: import.meta.dirname,
       },
-      // other options...
     },
   },
 ])
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### React Compiler
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+React Compiler не включен в шаблон из-за влияния на производительность разработки и сборки. Для добавления см. [документацию](https://react.dev/learn/react-compiler/installation).
