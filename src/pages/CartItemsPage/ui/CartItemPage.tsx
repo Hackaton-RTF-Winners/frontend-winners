@@ -12,20 +12,8 @@ export const CartItemPage = () => {
 
   if (!items.length) {
     return (
-      <div
-        style={{
-          padding: 16,
-          textAlign: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: 'calc(100vh - 56px - env(safe-area-inset-bottom))',
-          color: 'var(--tg-theme-text-color, #000000)',
-        }}
-      >
-        <h1 style={{ margin: 0, fontSize: 30, lineHeight: 1.5 }}>
-          Корзина пока пуста. Зайдите в каталог и выберите товары.
-        </h1>
+      <div className="cart-empty">
+        <h1>Корзина пока пуста. Зайдите в каталог и выберите товары.</h1>
       </div>
     )
   }
@@ -40,33 +28,14 @@ export const CartItemPage = () => {
               setSelectedIds(new Set())
               setSelectionMode(false)
             }}
-            style={{
-              background: 'transparent',
-              color: 'var(--tg-theme-button-color, #3390ec)',
-              border:
-                '1px solid var(--tg-theme-section-separator-color, #e3e3e3)',
-              borderRadius: 8,
-              padding: '10px 20px',
-              fontSize: 14,
-              fontWeight: 500,
-              cursor: 'pointer',
-            }}
+            className="cart-button cart-button-secondary"
           >
             Удалить выбранные
           </button>
         )}
         <button
           onClick={() => setSelectionMode((v) => !v)}
-          style={{
-            background: 'var(--tg-theme-button-color, #3390ec)',
-            color: 'var(--tg-theme-button-text-color, #ffffff)',
-            border: 'none',
-            borderRadius: 8,
-            padding: '10px 20px',
-            fontSize: 14,
-            fontWeight: 500,
-            cursor: 'pointer',
-          }}
+          className="cart-button cart-button-primary"
         >
           {selectionMode ? 'Отменить выбор' : 'Выбрать'}
         </button>
@@ -89,10 +58,7 @@ export const CartItemPage = () => {
                     return next
                   })
                 }}
-                style={{
-                  transform: 'scale(1.4)',
-                  accentColor: 'var(--tg-theme-button-color, #3390ec)',
-                }}
+                className="cart-checkbox"
                 aria-label="Выбрать товар"
               />
             )}
@@ -100,23 +66,8 @@ export const CartItemPage = () => {
           </div>
         ))}
       </div>
-      <div
-        style={{ marginTop: 12, display: 'flex', justifyContent: 'flex-end' }}
-      >
-        <button
-          onClick={clear}
-          style={{
-            background: 'transparent',
-            color: 'var(--tg-theme-button-color, #3390ec)',
-            border:
-              '1px solid var(--tg-theme-section-separator-color, #e3e3e3)',
-            borderRadius: 8,
-            padding: '10px 20px',
-            fontSize: 14,
-            fontWeight: 500,
-            cursor: 'pointer',
-          }}
-        >
+      <div className="cart-clear-section">
+        <button onClick={clear} className="cart-button cart-button-secondary">
           Очистить корзину
         </button>
       </div>

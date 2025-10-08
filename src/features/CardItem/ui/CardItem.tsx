@@ -7,15 +7,6 @@ import type { PipeNomenclature } from '@shared/api/types'
 
 export interface CardItemProps {
   product?: PipeNomenclature
-  price?: string
-  pricePerUnit?: string
-  sellerName?: string
-  sellerIcon?: string
-  tradesCount?: number
-  successRate?: number
-  available?: string
-  limits?: string
-  paymentMethods?: string[]
   onBuy?: () => void
   buyLabel?: string
   hideBuyButton?: boolean
@@ -39,8 +30,11 @@ export const CardItem = ({
     PipeWallThickness: 3.5,
     Status: 1,
     Koef: 0.011782032,
+    Stock: 'Склад-1',
+    StockName: 'Основной склад',
+    InStock: 150,
+    Price: 2500,
   },
-  price = 'По запросу',
   onBuy,
   buyLabel = 'В корзину',
   hideBuyButton = false,
@@ -57,9 +51,9 @@ export const CardItem = ({
     }
   }
 
-  const handleCopyTypeId = async () => {
+  const handleCopyId = async () => {
     try {
-      await navigator.clipboard.writeText(product.TypeId)
+      await navigator.clipboard.writeText(product.Id)
       vibrate('light')
       setIsCopiedToastVisible(true)
       setTimeout(() => setIsCopiedToastVisible(false), 1500)
@@ -68,12 +62,50 @@ export const CardItem = ({
     }
   }
 
+  const formatPrice = (price?: number) => {
+    if (!price) {return 'По запросу'}
+    return `${price.toLocaleString('ru-RU')} ₽`
+  }
+
+  const getPriceDisplay = () => {
+    if (!product.Price) {
+      return {
+        main: 'Цена за единицу',
+        subtitle: 'По запросу',
+      }
+    }
+    return {
+      main: formatPrice(product.Price),
+      subtitle: 'Цена за единицу',
+    }
+  }
+
+  const formatStock = (stock?: number) => {
+    if (!stock) {return 'Нет в наличии'}
+    return `${stock} шт.`
+  }
+
   return (
     <div className="card-item">
       <div className="card-header">
         <div className="price-section">
-          <div className="price">{price}</div>
-          <div className="price-subtitle">{product.ProductionType}</div>
+          {(() => {
+            const priceDisplay = getPriceDisplay()
+            return (
+              <>
+                <div
+                  className={`price ${!product.Price ? 'price-no-value' : ''}`}
+                >
+                  {priceDisplay.main}
+                </div>
+                <div
+                  className={`price-subtitle ${!product.Price ? 'price-subtitle-no-value' : ''}`}
+                >
+                  {priceDisplay.subtitle}
+                </div>
+              </>
+            )
+          })()}
         </div>
         {!hideBuyButton && (
           <div className="action-buttons">
@@ -85,40 +117,33 @@ export const CardItem = ({
       </div>
 
       <div className="card-content">
-        <div className="seller-info">
-          <div className="seller-avatar">
-            <span className="seller-icon">🔧</span>
-            <div className="online-indicator"></div>
-          </div>
-          <div className="seller-details">
-            <div className="seller-name">{product.Manufacturer}</div>
-            <div className="seller-stats">
-              {product.Gost} • {product.SteelGrade}
-            </div>
-          </div>
-        </div>
-
-        <div className="transaction-details">
+        <div className="product-details">
           <div className="detail-row">
-            <span className="detail-label">Диаметр</span>
-            <span className="detail-value">{product.Diameter} мм</span>
+            <span className="detail-label">ГОСТ</span>
+            <span className="detail-value">{product.Gost}</span>
           </div>
           <div className="detail-row">
-            <span className="detail-label">Толщина стенки</span>
-            <span className="detail-value">{product.PipeWallThickness} мм</span>
+            <span className="detail-label">Марка стали</span>
+            <span className="detail-value">{product.SteelGrade}</span>
           </div>
           <div className="detail-row">
-            <span className="detail-label">Форма длины</span>
-            <span className="detail-value">{product.FormOfLength}</span>
+            <span className="detail-label">Склад</span>
+            <span className="detail-value">
+              {product.StockName || product.Stock}
+            </span>
           </div>
           <div className="detail-row">
-            <span className="detail-label">Артикул</span>
+            <span className="detail-label">Количество в наличии</span>
+            <span className="detail-value">{formatStock(product.InStock)}</span>
+          </div>
+          <div className="detail-row">
+            <span className="detail-label">ID</span>
             <span className="detail-value with-icon">
-              {product.IDTypeNew}
+              {product.Id}
               <button
                 className="doc-button"
-                onClick={handleCopyTypeId}
-                aria-label="Скопировать инвентарный номер"
+                onClick={handleCopyId}
+                aria-label="Скопировать ID"
               >
                 <span className="icon-doc" aria-hidden="true" />
               </button>
@@ -128,7 +153,7 @@ export const CardItem = ({
       </div>
       {isCopiedToastVisible &&
         createPortal(
-          <div className="copy-toast">Артикул скопирован</div>,
+          <div className="copy-toast">ID скопирован</div>,
           document.body,
         )}
     </div>

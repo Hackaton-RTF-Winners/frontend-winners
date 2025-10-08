@@ -15,6 +15,10 @@ export interface PipeNomenclature {
   PipeWallThickness: number
   Status: number
   Koef: number
+  Stock?: string
+  StockName?: string
+  InStock?: number
+  Price?: number
 }
 
 export interface PipeType {
