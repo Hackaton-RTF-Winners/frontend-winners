@@ -1,6 +1,6 @@
 import './CardItem.css'
-import { useTelegramHaptic } from '../../../features/TelegramHaptic'
-import type { PipeNomenclature } from '../../../features/JSONInerfaces'
+import { useTelegramHaptic } from '@features/TelegramHaptic'
+import type { PipeNomenclature } from '@features/JSONInerfaces'
 
 export interface CardItemProps {
   product?: PipeNomenclature
