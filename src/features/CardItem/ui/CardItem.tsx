@@ -1,6 +1,8 @@
 import './CardItem.css'
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useTelegramHaptic } from '@features/TelegramHaptic'
+import { useCart } from '@shared/lib'
 import type { PipeNomenclature } from '@features/JSONInerfaces'
 
 export interface CardItemProps {
@@ -15,6 +17,8 @@ export interface CardItemProps {
   limits?: string
   paymentMethods?: string[]
   onBuy?: () => void
+  buyLabel?: string
+  hideBuyButton?: boolean
 }
 
 export const CardItem = ({
@@ -38,12 +42,16 @@ export const CardItem = ({
   },
   price = 'По запросу',
   onBuy,
+  buyLabel = 'В корзину',
+  hideBuyButton = false,
 }: CardItemProps) => {
   const { vibrate } = useTelegramHaptic()
+  const { addItem } = useCart()
   const [isCopiedToastVisible, setIsCopiedToastVisible] = useState(false)
 
   const handleBuy = () => {
     vibrate('light')
+    addItem(product)
     if (onBuy) {
       onBuy()
     }
@@ -56,7 +64,7 @@ export const CardItem = ({
       setIsCopiedToastVisible(true)
       setTimeout(() => setIsCopiedToastVisible(false), 1500)
     } catch {
-      // ignore
+      console.error('Clipboard write failed')
     }
   }
 
@@ -67,11 +75,13 @@ export const CardItem = ({
           <div className="price">{price}</div>
           <div className="price-subtitle">{product.ProductionType}</div>
         </div>
-        <div className="action-buttons">
-          <button className="buy-button" onClick={handleBuy}>
-            КУПИТЬ
-          </button>
-        </div>
+        {!hideBuyButton && (
+          <div className="action-buttons">
+            <button className="buy-button" onClick={handleBuy}>
+              {buyLabel}
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="card-content">
@@ -116,9 +126,11 @@ export const CardItem = ({
           </div>
         </div>
       </div>
-      {isCopiedToastVisible && (
-        <div className="copy-toast">Инвентарный номер скопирован</div>
-      )}
+      {isCopiedToastVisible &&
+        createPortal(
+          <div className="copy-toast">Артикул скопирован</div>,
+          document.body,
+        )}
     </div>
   )
 }
