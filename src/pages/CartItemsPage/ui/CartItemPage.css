@@ -1,0 +1,127 @@
+.cart-page {
+  padding: 16px;
+  padding-bottom: calc(16px + 56px + 44px + 16px + env(safe-area-inset-bottom));
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.cart-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.cart-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* мобильные: одна колонка */
+  gap: 16px;
+}
+
+/* убираем внешние отступы карточек в сетке */
+.cart-grid .card-item {
+  margin: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* >= 768px: три колонки */
+@media (min-width: 768px) {
+  .cart-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* >= 1440px: авто-заполнение 4+ колонок */
+@media (min-width: 1440px) {
+  .cart-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+.cart-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center; /* центрируем чекбокс относительно карточки */
+}
+
+.cart-buy-fixed {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: calc(56px + env(safe-area-inset-bottom) + 12px); /* над BottomBar */
+  height: 44px;
+  background: var(--tg-theme-button-color, #3390ec);
+  color: var(--tg-theme-button-text-color, #ffffff);
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 6px 20px var(--shadow-color, rgba(0, 0, 0, 0.18));
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.cart-empty {
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 56px - env(safe-area-inset-bottom));
+  color: var(--tg-theme-text-color, #000000);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.cart-empty h1 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.5;
+  font-family: inherit;
+}
+
+.cart-button {
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cart-button-primary {
+  background: var(--tg-theme-button-color, #3390ec);
+  color: var(--tg-theme-button-text-color, #ffffff);
+  border: none;
+}
+
+.cart-button-secondary {
+  background: transparent;
+  color: var(--tg-theme-button-color, #3390ec);
+  border: 1px solid var(--tg-theme-section-separator-color, #e3e3e3);
+}
+
+.cart-checkbox {
+  transform: scale(1.4);
+  accent-color: var(--tg-theme-button-color, #3390ec);
+}
+
+.cart-clear-section {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Переменные для адаптивных теней */
+:root {
+  --shadow-color: rgba(0, 0, 0, 0.18);
+}
+
+[data-theme='dark'] {
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}
