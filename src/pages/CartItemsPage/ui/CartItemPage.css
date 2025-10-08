@@ -1,6 +1,5 @@
 .cart-page {
   padding: 16px;
-  /* учитываем высоту BottomBar (56px) + фиксированной кнопки "Купить" (44px) + доп. отступ */
   padding-bottom: calc(16px + 56px + 44px + 16px + env(safe-area-inset-bottom));
 }
 

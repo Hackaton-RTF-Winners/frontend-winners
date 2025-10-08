@@ -2,11 +2,13 @@ import { useState } from 'react'
 import { useCart } from '@shared/lib'
 import { CardItem } from '@features/CardItem/ui/CardItem'
 import './CartItemPage.css'
+import { useNavigate } from 'react-router-dom'
 
 export const CartItemPage = () => {
   const { items, removeItem, clear } = useCart()
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   const [selectionMode, setSelectionMode] = useState(false)
+  const navigate = useNavigate()
 
   if (!items.length) {
     return (
@@ -123,7 +125,12 @@ export const CartItemPage = () => {
         <button
           className="cart-buy-fixed"
           onClick={() => {
-            /* TODO: переход к оформлению */
+            navigate('/chat', {
+              state: {
+                notifyMessage:
+                  'Вы подали заявку на покупку. Наш менеджер "@qwerty" свяжется с вами в ближайшее время',
+              },
+            })
           }}
         >
           Купить

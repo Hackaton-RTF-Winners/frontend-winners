@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useTelegramHaptic } from '@features/TelegramHaptic'
 import { useCart } from '@shared/lib'
-import type { PipeNomenclature } from '@features/JSONInerfaces'
+import type { PipeNomenclature } from '@shared/api/types'
 
 export interface CardItemProps {
   product?: PipeNomenclature

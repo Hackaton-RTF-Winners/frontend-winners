@@ -3,7 +3,7 @@ import { Filter } from '@widgets/Filter'
 import { useTelegramHaptic } from '@features/TelegramHaptic'
 import { CardItem } from '@features/CardItem/ui/CardItem'
 import { useTelegram } from '@shared/lib'
-import type { PipeNomenclature } from '@features/JSONInerfaces'
+import type { PipeNomenclature } from '@shared/api/types'
 import './CatalogPage.css'
 
 export const CatalogPage = () => {

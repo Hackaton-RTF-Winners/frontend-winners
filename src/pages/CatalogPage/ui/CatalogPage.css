@@ -1,6 +1,5 @@
 .catalog-page {
   padding: 12px;
-  /* чтобы контент не перекрывался фиксированным bottom-bar */
   padding-bottom: calc(12px + 56px + env(safe-area-inset-bottom));
 }
 
@@ -13,7 +12,7 @@
 
 .filters-bar {
   display: flex;
-  flex-direction: column; /* на мобильном кнопка под фильтрами */
+  flex-direction: column;
   align-items: stretch;
   gap: 12px;
 }
@@ -24,7 +23,7 @@
 
 .filters-reset {
   white-space: nowrap;
-  padding: 12px 16px; /* как у .filter-button */
+  padding: 12px 16px;
   background: transparent;
   border: 1px solid var(--tg-theme-section-separator-color, #e3e3e3);
   border-radius: 12px;
@@ -33,13 +32,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%; /* на мобильном на всю ширину */
+  width: 100%;
 }
 
 @media (min-width: 768px) {
   .filters-bar {
-    flex-direction: row; /* в ряд на >=768px */
-    align-items: flex-start; /* высота фильтров независима от кнопки */
+    flex-direction: row;
+    align-items: flex-start;
   }
   .filters-row {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -52,7 +51,6 @@
   }
 }
 
-/* Мобильная версия: прячем фильтры, показываем синюю кнопку */
 @media (max-width: 767px) {
   .filters-toggle {
     display: inline-flex;
@@ -73,33 +71,29 @@
   }
 
   .filters-row.open {
-    display: grid; /* открываем грид по нажатию */
+    display: grid;
   }
 }
 
 .catalog-grid {
   display: grid;
-  grid-template-columns: 1fr; /* по умолчанию: одна колонка на мобильных */
-  gap: 16px; /* расстояние между карточками */
-  margin-top: 16px; /* отступ от фильтра */
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 16px;
 }
 
-/* Убираем внешние отступы у карточек внутри сетки,
-   чтобы избежать двойных отступов и "склеивания" */
 .catalog-grid .card-item {
   margin: 0;
   max-width: 100%;
   width: 100%;
 }
 
-/* >= 768px: три колонки */
 @media (min-width: 768px) {
   .catalog-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-/* >= 1440px: авто‑заполнение 4+ колонок по мере роста */
 @media (min-width: 1440px) {
   .catalog-grid {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
