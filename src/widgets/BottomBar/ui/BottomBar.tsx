@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './BottomBar.css'
 
@@ -21,7 +21,9 @@ export const BottomBar = () => {
 
   useEffect(() => {
     const current = tabs.find((t) => t.path === location.pathname)
-    if (current) {setActive(current.id)}
+    if (current) {
+      setActive(current.id)
+    }
   }, [location.pathname])
 
   return (
@@ -35,7 +37,14 @@ export const BottomBar = () => {
             navigate(tab.path)
           }}
         >
-          <img className="icon" src={tab.icon} alt="" aria-hidden="true" />
+          <span
+            className="icon-mask"
+            style={
+              { ['--icon-url']: `url(${tab.icon})` } as CSSProperties &
+                Record<'--icon-url', string>
+            }
+            aria-hidden="true"
+          />
           <span className="label">{tab.label}</span>
         </button>
       ))}

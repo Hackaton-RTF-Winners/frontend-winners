@@ -43,11 +43,14 @@
   font-weight: 600;
 }
 
-.tab .icon {
+.tab .icon-mask {
   width: 20px;
   height: 20px;
   margin-bottom: 4px;
-  filter: var(--tg-theme-text-color-filter, none);
+  display: inline-block;
+  background-color: currentColor; /* берёт цвет текста — зависит от темы */
+  -webkit-mask: var(--icon-url) no-repeat center / contain;
+  mask: var(--icon-url) no-repeat center / contain;
 }
 
 @media (hover: hover) {
