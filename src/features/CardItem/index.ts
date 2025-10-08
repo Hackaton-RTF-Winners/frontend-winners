@@ -1,1 +1,3 @@
-export { CardItem } from '@widgets/CardItem/ui/CardItem.tsx'
+import { CardItem } from '@features/CardItem/ui/CardItem.tsx'
+
+export { CardItem }
