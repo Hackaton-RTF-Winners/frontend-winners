@@ -3,6 +3,7 @@ import { Filter } from '@widgets/Filter'
 import { useTelegramHaptic } from '@features/TelegramHaptic'
 import { CardItem } from '@features/CardItem/ui/CardItem'
 import { useTelegram } from '@shared/lib'
+import type { PipeNomenclature } from '@features/JSONInerfaces'
 import './CatalogPage.css'
 
 export const CatalogPage = () => {
@@ -142,7 +143,9 @@ export const CatalogPage = () => {
   // - на >=768px: всегда, если есть выбор
   useEffect(() => {
     const isMobile = window.matchMedia('(max-width: 767px)').matches
-    if (!tg || !tg.MainButton || !tg.SecondaryButton) {return}
+    if (!tg || !tg.MainButton || !tg.SecondaryButton) {
+      return
+    }
 
     const handleApply = () => applyAllFilters()
 
@@ -276,9 +279,27 @@ export const CatalogPage = () => {
       </div>
 
       <div className="catalog-grid">
-        {filtered.map((p) => (
-          <CardItem key={p.id} />
-        ))}
+        {filtered.map((p) => {
+          const product: PipeNomenclature = {
+            Id: p.id,
+            CategoryId: '',
+            TypeId: p.id,
+            IDTypeNew: p.id,
+            ProductionType: p.type,
+            IDFunctionType: '',
+            Name: `Труба ${p.diameter}×${p.wall} • ${p.steel} • ${p.gost}`,
+            Gost: p.gost,
+            FormOfLength: '',
+            Manufacturer: 'Производитель',
+            SteelGrade: p.steel,
+            Diameter: Number(p.diameter),
+            ProfileSize2: 0,
+            PipeWallThickness: Number(p.wall),
+            Status: 1,
+            Koef: 0,
+          }
+          return <CardItem key={p.id} product={product} />
+        })}
       </div>
     </div>
   )

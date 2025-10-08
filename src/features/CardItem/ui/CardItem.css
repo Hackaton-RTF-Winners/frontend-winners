@@ -197,14 +197,25 @@
   left: 50%;
   bottom: calc(56px + env(safe-area-inset-bottom) + 12px);
   transform: translateX(-50%);
-  background: var(--tg-theme-secondary-bg-color, #181818);
-  color: var(--tg-theme-button-text-color, #ffffff);
-  border: 1px solid var(--tg-theme-section-separator-color, #2f2f2f);
+  color: var(--tg-theme-bg-color, #ffffff); /* инверсия темы для текста */
+  border: 1px solid var(--tg-theme-text-color, #000000);
   border-radius: 12px;
   padding: 10px 14px;
   font-size: 13px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   z-index: 1000;
+  background: transparent; /* фон рисуем полупрозрачным через псевдо-элемент */
+  overflow: hidden; /* чтобы псевдоэлемент не выходил за скругление */
+}
+
+.copy-toast::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--tg-theme-text-color, #000000);
+  opacity: 0.6; /* снизил непрозрачность подложки */
+  border-radius: inherit;
+  z-index: -1; /* под текстом */
 }
 
 @media (max-width: 480px) {
